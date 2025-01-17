@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "dsacli"
+version = "0.1.0"
+description = ""
+authors = ["Saitama- <wishiweresaitama@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+click = "^8.1.8"
+pytest = "^8.3.4"
+
+[tool.poetry.scripts]
+dsacli = "dsacli.cli:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
