@@ -62,7 +62,7 @@ MODIFICATION_STRUCTURE = {
         'kind': 'file',
         'spec': {
             'name': '.prefix',
-            'context': ''
+            'context': '{{MODIFICATION_PREFIX_PLACEHOLDER}}'
         }
     }
 }

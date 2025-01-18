@@ -10,6 +10,7 @@ python = "^3.11"
 click = "^8.1.8"
 pytest = "^8.3.4"
 pydantic = "^2.10.5"
+keyboard = "^0.13.5"
 
 [tool.poetry.scripts]
 dmacli = "dmacli.cli:cli"
