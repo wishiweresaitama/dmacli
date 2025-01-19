@@ -8,7 +8,7 @@ import tempfile
 import click
 
 from dmacli.configuration import Configuration
-from dmacli.constants import BUILDER_INCLUDE_FILES, BUILDER_RELATIVE_PATH
+from dmacli.constants import BUILDER_INCLUDE_FILES, BUILDER_RELATIVE_PATH, MODIFICATION_INDICATOR_PLACEHOLDER
 
 @click.command()
 @click.option('-s', '--source', help='Source directory', type=click.Path(exists=True, dir_okay=True), required=True)
@@ -50,6 +50,6 @@ def build(source: click.Path, destination: click.Path, cache: bool):
     ).check_returncode()
 
     shutil.copyfile(
-        Path(source, 'mod.cpp'),
+        Path(source, MODIFICATION_INDICATOR_PLACEHOLDER),
         Path(destination, 'mod.cpp'),
     )

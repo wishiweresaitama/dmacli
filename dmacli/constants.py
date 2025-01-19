@@ -4,6 +4,7 @@ from os import getenv
 CONFIGURATION_NAME = 'config.json'
 CONFIGURATION_DIR = '.dmacli'
 
+MODIFICATION_INDICATOR_PLACEHOLDER = '.modification'
 MODIFICATION_NAME_PLACEHOLDER = 'ModificationNamePlaceholder'
 
 MODIFICATION_DATA_PREFIX = getenv('MODIFICATION_DATA_PREFIX', 'Assets')

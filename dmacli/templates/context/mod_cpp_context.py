@@ -1,5 +1,5 @@
 MOD_CPP_CONTEXT = {
-    'name': 'mod.cpp',
+    'name': '{{MODIFICATION_INDICATOR_PLACEHOLDER}}.cpp',
     'context':
 """\
 name = "{{MODIFICATION_NAME_PLACEHOLDER}}";

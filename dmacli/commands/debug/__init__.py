@@ -6,7 +6,7 @@ import click
 
 from dmacli.configuration import Configuration
 from dmacli.constants import WORKBENCH_RELATIVE_PATH
-from dmacli.utils.utils import prepare_mods
+from dmacli.utils.utils import create_junction, prepare_mods
 
 @click.command()
 @click.option(
@@ -17,19 +17,25 @@ from dmacli.utils.utils import prepare_mods
     multiple=True,
     type=str)
 def debug(modifications):
-    valid_modifications = []
+    junctions = []
 
     for modification in modifications:
         if not os.path.exists(modification):
             continue
         
-        valid_modifications.append(modification)
+        junction_path = os.path.join(
+            Configuration().get().drivePath,
+            os.path.split(modification)[1],
+        )
+
+        create_junction(modification, junction_path)
+        junctions.append(junction_path)
     
-    if not valid_modifications:
+    if not junctions:
         logging.error('No valid modifications were provided')
         exit(1)
 
     executable = Path(Configuration().get().toolsPath, WORKBENCH_RELATIVE_PATH)
-    executable_args = prepare_mods(valid_modifications)
+    executable_args = prepare_mods(junctions)
 
     subprocess.run(f'{executable.name} {executable_args}', cwd=executable.parent, shell=True)
