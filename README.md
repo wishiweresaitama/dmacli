@@ -4,8 +4,9 @@ DMACLI is a command-line interface tool for managing DayZ mod projects. It provi
 
 ## Installation
 
-1. Place the `dmacli` folder in your Python environment or install as a standalone executable.  
-2. Configure your environment variables as needed.
+```bash
+pipx install git+git+https://github.com/wishiweresaitama/dmacli.git
+```
 
 ## Usage
 
@@ -44,6 +45,45 @@ dmacli.exe [COMMAND] --help
     Validates build checksums and runs the DayZ server/client.
 
 ## Examples
+
+### Configuration
+
+```json
+{
+    "originPath": "D:\\SteamLibrary\\steamapps\\common\\DayZ",
+    "gamePath": "D:\\SteamLibrary\\steamapps\\common\\DayZ Dev",
+    "toolsPath": "D:\\SteamLibrary\\steamapps\\common\\DayZ Tools",
+    "drivePath": "P:\\",
+    "buildPath": "P:\\builds",
+    "clientProfile": "Profiles\\ClientProfile",
+    "serverProfile": "Profiles\\ServerProfile",
+    "executeFile": "DayZDiag_x64.exe",
+    "serverExecuteFile": "DayZDiag_x64-Server.exe",
+    "clientExecuteFile": "DayZDiag_x64-Client.exe",
+    "logRetentionDays": 3,
+    "mods": [
+        "P:\\builds\\@CF",
+    ],
+    "serverMods": [
+        "P:\\builds\\@Utils",
+    ],
+    "clientArgs": [
+        "-newErrorsAreWarnings=1",
+        "-connect=127.0.0.1:2302",
+        "-name=Player",
+        "-dologs",
+        "-window",
+        "-noPause"
+    ],
+    "serverArgs": [
+        "-newErrorsAreWarnings=1",
+        "-server",
+        "-port=2302",
+        "-dologs",
+        "-config=serverDZ.cfg"
+    ]
+}
+```
 
 1. Apply a configuration:
 
