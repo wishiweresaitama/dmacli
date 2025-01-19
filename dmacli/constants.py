@@ -5,7 +5,8 @@ CONFIGURATION_NAME = 'config.json'
 CONFIGURATION_DIR = '.dmacli'
 
 MODIFICATION_NAME_PLACEHOLDER = 'ModificationNamePlaceholder'
-MODIFICATION_DATA_PREFIX = getenv('MODIFICATION_DATA_PREFIX', 'Resources')
+
+MODIFICATION_DATA_PREFIX = getenv('MODIFICATION_DATA_PREFIX', 'Assets')
 
 WORKBENCH_RELATIVE_PATH = 'Bin/Workbench/workbenchApp.exe'
 BUILDER_RELATIVE_PATH = 'Bin/AddonBuilder/AddonBuilder.exe'
@@ -29,6 +30,7 @@ BUILDER_INCLUDE_FILES = [
     '*.ast',
     '*.aw',
     '*.xml',
+    '*.fnt',
 ]
 
 DAYZ_DIRECTORY_STRUCTURE = {
