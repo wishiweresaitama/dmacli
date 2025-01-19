@@ -48,11 +48,11 @@ MODIFICATION_STRUCTURE = {
                     }
                 }
             },
-            'config': {
-                'kind': 'file',
-                'spec': MODULE_CONFIG_CPP_CONTEXT
-            }
         }
+    },
+    'config': {
+        'kind': 'file',
+        'spec': MODULE_CONFIG_CPP_CONTEXT
     },
     'mod': {
         'kind': 'file',

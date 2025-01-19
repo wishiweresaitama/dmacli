@@ -10,6 +10,27 @@ MODIFICATION_DATA_PREFIX = getenv('MODIFICATION_DATA_PREFIX', 'Resources')
 WORKBENCH_RELATIVE_PATH = 'Bin/Workbench/workbenchApp.exe'
 BUILDER_RELATIVE_PATH = 'Bin/AddonBuilder/AddonBuilder.exe'
 
+BUILDER_INCLUDE_FILES = [
+    '*.emat',
+    '*.edds',
+    '*.ptc',
+    '*.c',
+    '*.imageset',
+    '*.layout',
+    '*.ogg',
+    '*.paa',
+    '*.rvmat',
+    '*.wrp',
+    '*.bin',
+    '*.xob',
+    '*.agr',
+    '*.anm',
+    '*.asi',
+    '*.ast',
+    '*.aw',
+    '*.xml',
+]
+
 DAYZ_DIRECTORY_STRUCTURE = {
     'folders': [
         'Addons', 'bliss', 'dta', 'sakhal'

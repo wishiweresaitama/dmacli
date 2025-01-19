@@ -30,6 +30,6 @@ def debug(modifications):
         exit(1)
 
     executable = Path(Configuration().get().toolsPath, WORKBENCH_RELATIVE_PATH)
-    executable_args = prepare_mods([x + '\\Scripts' for x in valid_modifications])
+    executable_args = prepare_mods(valid_modifications)
 
     subprocess.run(f'{executable.name} {executable_args}', cwd=executable.parent, shell=True)
