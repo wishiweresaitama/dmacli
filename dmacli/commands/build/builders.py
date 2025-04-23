@@ -22,8 +22,8 @@ class Builder:
     ):
         self.builder_strategy = builder_strategy
         self.binarize_strategy = binarize_strategy
-        self.source = source
-        self.destination = destination
+        self.source = source.resolve()
+        self.destination = destination.resolve()
         self.cache = cache
 
     def build(self):
@@ -75,11 +75,10 @@ class PackBuilder(Builder):
 
             # relative_path = modification.get_path().relative_to(self.source)
             # destination = self.destination / relative_path
-            destination = self.destination
 
             copy = copy_directory(modification.get_path())
             self.binarize_strategy.binarize(modification.get_path(), copy)
-            self.builder_strategy.build(copy, destination, modification.get_name(), modification.get_prefix(), self.cache)
+            self.builder_strategy.build(copy, self.destination, modification.get_name(), modification.get_prefix(), self.cache)
     
     def _post_build(self):
         ...

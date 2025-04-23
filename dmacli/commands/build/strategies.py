@@ -87,9 +87,11 @@ class BinarizeStrategy:
     def binarize(self, source: Path, destination: Path):
         ...
 
+
 class MockBinarizeStrategy(BinarizeStrategy):
     def binarize(self, source: Path, destination: Path):
         print(f'Binarizing {source} to {destination}')
+
 
 class BohemiaBinarizeStrategy(BinarizeStrategy):
     def binarize(self, source: Path, destination: Path):
