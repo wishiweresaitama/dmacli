@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 
 from pathlib import Path
 from dmacli.constants import CONFIGURATION_DIR, CONFIGURATION_NAME
