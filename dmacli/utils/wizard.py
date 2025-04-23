@@ -1,6 +1,6 @@
 from abc import abstractmethod
 import os
-from dmacli.constants import MODIFICATION_DATA_PREFIX, MODIFICATION_INDICATOR_PLACEHOLDER
+from dmacli.constants import MODIFICATION_DATA_PREFIX, ROOT_MODIFICATION_FILE
 from dmacli.models.file import FileModel
 from dmacli.templates.structures import CONFIGURATION_STRUCTURE, MODIFICATION_STRUCTURE
 from dmacli.utils.utils import preformat
@@ -36,7 +36,7 @@ class Wizard:
             template = preformat(file_context.context).format(
                 MODIFICATION_NAME_PLACEHOLDER=self.name,
                 MODIFICATION_PREFIX_PLACEHOLDER=self._prefix,
-                MODIFICATION_INDICATOR_PLACEHOLDER=MODIFICATION_INDICATOR_PLACEHOLDER,
+                ROOT_MODIFICATION_FILE=ROOT_MODIFICATION_FILE,
             )
             file.write(template)
 

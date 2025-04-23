@@ -1,3 +1,4 @@
+from dmacli.constants import ROOT_PREFIX_FILE
 from dmacli.templates.context.config_cpp_context import MODULE_CONFIG_CPP_CONTEXT, SUBMODULE_CONFIG_CPP_CONTEXT
 from dmacli.templates.context.mod_cpp_context import MOD_CPP_CONTEXT
 
@@ -61,7 +62,7 @@ MODIFICATION_STRUCTURE = {
     'prefix': {
         'kind': 'file',
         'spec': {
-            'name': '.prefix',
+            'name': ROOT_PREFIX_FILE,
             'context': '{{MODIFICATION_PREFIX_PLACEHOLDER}}'
         }
     }

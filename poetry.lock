@@ -3342,6 +3342,17 @@ pluggy = ">=1.5,<2"
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
+name = "six"
+version = "1.17.0"
+description = "Python 2 and 3 compatibility utilities"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+files = [
+    {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
+    {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.12.2"
 description = "Backported and Experimental Type Hints for Python 3.8+"
@@ -3352,7 +3363,20 @@ files = [
     {file = "typing_extensions-4.12.2.tar.gz", hash = "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"},
 ]
 
+[[package]]
+name = "yapbol"
+version = "0.1"
+description = "Yet Another PBO Library"
+optional = false
+python-versions = "*"
+files = [
+    {file = "yapbol-0.1.tar.gz", hash = "sha256:b05ad918388021eb4493dcd5c64215eb689a56596a281f073b0a37f96b9eee3c"},
+]
+
+[package.dependencies]
+six = "*"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "5eac44a4023601fd86de57e8c929768814ed7b56e570f61dde6f05f78bab9873"
+content-hash = "bc675213efe631ce0390bc597137d6ac7823e2e1b862e8f5f2f3d3450b4ce106"

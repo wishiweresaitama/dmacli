@@ -1,5 +1,8 @@
+from dmacli.constants import ROOT_MODIFICATION_FILE
+
+
 MOD_CPP_CONTEXT = {
-    'name': '{{MODIFICATION_INDICATOR_PLACEHOLDER}}.cpp',
+    'name': ROOT_MODIFICATION_FILE,
     'context':
 """\
 name = "{{MODIFICATION_NAME_PLACEHOLDER}}";

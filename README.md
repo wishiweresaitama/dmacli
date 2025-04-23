@@ -5,7 +5,7 @@ DMACLI is a command-line interface tool for managing DayZ mod projects. It provi
 ## Installation
 
 ```bash
-pipx install git+git+https://github.com/wishiweresaitama/dmacli.git
+pipx install git+https://github.com/wishiweresaitama/dmacli.git
 ```
 
 ## Usage

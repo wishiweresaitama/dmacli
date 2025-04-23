@@ -1,55 +1,53 @@
-import base64
-import logging
-import os
-from pathlib import Path
-import shutil
-import subprocess
-import tempfile
-import click
+"""Build command module for dmacli."""
 
-from dmacli.configuration import Configuration
-from dmacli.constants import BUILDER_INCLUDE_FILES, BUILDER_RELATIVE_PATH, MODIFICATION_INDICATOR_PLACEHOLDER
+import click
+from pathlib import Path
+from dmacli.commands.build.factories import ModificationBuilderFactory, PackBuilderFactory
 
 @click.command()
-@click.option('-s', '--source', help='Source directory', type=click.Path(exists=True, dir_okay=True), required=True)
-@click.option('-d', '--destination', help='Destination directory', type=click.Path(dir_okay=True), required=True)
-@click.option('--cache/--no-cache', default=False, help='Use cached data')
-def build(source: click.Path, destination: click.Path, cache: bool):
-    os.makedirs(destination, exist_ok=True)
-    executable = Path(Configuration().get().toolsPath, BUILDER_RELATIVE_PATH)
-    
-    prefix = ''
-    try:
-        with open(os.path.join(source, '.prefix'), 'r') as file:
-            prefix = file.read()
-    except FileNotFoundError:
-        logging.info('No prefix file found, using module name as prefix')
+@click.option(
+    "-s",
+    "--source",
+    help="Source directory",
+    type=click.Path(exists=True, dir_okay=True),
+    required=True,
+)
+@click.option(
+    "-d",
+    "--destination",
+    help="Destination directory",
+    type=click.Path(dir_okay=True),
+    required=True,
+)
+@click.option(
+    "-b",
+    "--builder",
+    help="Builder to use",
+    type=click.Choice(["fpacker", "addonbuilder", "pbopacker"]),
+    default="addonbuilder",
+    required=True,
+)
+@click.option(
+    "--pack/--no-pack",
+    default=False,
+    help="Build as modification or pack",
+)
+@click.option("--cache/--no-cache", default=False, help="Use cached data")
+def build(
+    source: click.Path,
+    destination: click.Path,
+    builder: str,
+    cache: bool,
+    pack: bool,
+) -> None:
+    """Build the project using the specified builder.
 
-    source_encoded = base64.b64encode(source.encode()).decode()
-    
-    logging.info(f'Building module {source} to {destination}')
-    logging.info(f'Encoded source: {source_encoded} | Prefix: {prefix}')
-
-    wildcard_path = Path(tempfile.gettempdir(), 'include.wildcard.txt')
-
-    with open(wildcard_path, 'w') as file:
-        file.write(','.join(BUILDER_INCLUDE_FILES))
-
-    subprocess.run(
-        [
-            executable.name,
-            source,
-            Path(destination, 'addons'),
-            f'-prefix={prefix}',
-            f'-temp={Path(tempfile.gettempdir(), source_encoded)}',
-            f'-include={wildcard_path}',
-            '-clear' if not cache else '',
-        ],
-        cwd=executable.parent,
-        shell=True,
-    ).check_returncode()
-
-    shutil.copyfile(
-        Path(source, MODIFICATION_INDICATOR_PLACEHOLDER),
-        Path(destination, 'mod.cpp'),
-    )
+    Args:
+        source: Source directory path
+        destination: Destination directory path
+        builder: Builder to use (fpacker / addonbuilder / pbopacker)
+        cache: Whether to use cached data
+    """
+    builder_factory = PackBuilderFactory() if pack else ModificationBuilderFactory()
+    builder = builder_factory.get_builder(builder, Path(source), Path(destination), cache)
+    builder.build()

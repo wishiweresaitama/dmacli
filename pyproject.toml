@@ -11,6 +11,8 @@ click = "^8.1.8"
 pytest = "^8.3.4"
 pydantic = "^2.10.5"
 keyboard = "^0.13.5"
+six = "^1.17.0"
+yapbol = "^0.1"
 
 [tool.poetry.scripts]
 dmacli = "dmacli.cli:cli"

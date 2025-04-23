@@ -16,3 +16,7 @@ class ConfigurationModel(BaseModel):
     serverMods: list
     serverArgs: list
     clientArgs: list
+
+    @staticmethod
+    def is_valid_parameter(param: str):
+        return param in ConfigurationModel.__fields__

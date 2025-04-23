@@ -4,13 +4,17 @@ from os import getenv
 CONFIGURATION_NAME = 'config.json'
 CONFIGURATION_DIR = '.dmacli'
 
-MODIFICATION_INDICATOR_PLACEHOLDER = '.modification'
+ROOT_MODIFICATION_FILE = '.modification'
+ROOT_PREFIX_FILE = '.prefix'
+
 MODIFICATION_NAME_PLACEHOLDER = 'ModificationNamePlaceholder'
 
 MODIFICATION_DATA_PREFIX = getenv('MODIFICATION_DATA_PREFIX', 'Assets')
 
 WORKBENCH_RELATIVE_PATH = 'Bin/Workbench/workbenchApp.exe'
-BUILDER_RELATIVE_PATH = 'Bin/AddonBuilder/AddonBuilder.exe'
+ADDON_BUILDER_RELATIVE_PATH = 'Bin/AddonBuilder/AddonBuilder.exe'
+CPP_TO_BIN_RELATIVE_PATH = 'Bin/CfgConvert/CPPtoBIN.bat'
+BINARIZE_RELATIVE_PATH = 'Bin/Binarize/Binarize.exe'
 
 BUILDER_INCLUDE_FILES = [
     '*.emat',
