@@ -4,6 +4,9 @@ import shutil
 import subprocess
 import hashlib as hl
 import time
+import tempfile
+
+from pathlib import Path
 
 
 def preformat(msg):
@@ -85,3 +88,13 @@ def run_interrupt_listener():
         except KeyboardInterrupt:
             print('Execution interrupted, exiting...')
             break
+
+def copy_directory(source : Path) -> Path:
+    with tempfile.TemporaryDirectory(delete=False) as temp_dir:
+        path = Path(temp_dir, source.name)
+        shutil.copytree(
+            source,
+            path,
+            dirs_exist_ok=True,
+        )
+        return path

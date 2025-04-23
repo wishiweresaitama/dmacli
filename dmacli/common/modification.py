@@ -9,7 +9,7 @@ class Modification:
     _is_valid = False
     _path = None
     
-    def __init__(self, path):
+    def __init__(self, path: Path):
         self.path = path
         self._prefix = None
         self._is_valid = self._is_valid_modification()
@@ -22,6 +22,9 @@ class Modification:
     
     def get_path(self):
         return self.path
+
+    def get_name(self):
+        return self.path.name
     
     def is_valid(self):
         return self._is_valid
@@ -35,3 +38,18 @@ class Modification:
     def _get_prefix(self):
         with open(Path(self.path) / ROOT_PREFIX_FILE, 'r') as file:
             return file.read().strip()
+
+
+class Pack:
+    def __init__(self, path):
+        self.path = path
+        self.modifications = []
+        for child in self.path.glob('**/'):
+            if Modification(child).is_valid():
+                self.modifications.append(Modification(child))
+
+    def get_modifications(self):
+        return self.modifications
+
+    def get_path(self):
+        return self.path

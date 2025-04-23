@@ -15,17 +15,17 @@ from dmacli.constants import (
     ADDON_BUILDER_RELATIVE_PATH,
     BUILDER_INCLUDE_FILES,
     CPP_TO_BIN_RELATIVE_PATH,
-    ROOT_MODIFICATION_FILE,
+    BINARIZE_RELATIVE_PATH,
 )
 
 
 class BuilderStrategy:
-    def build(self, source: Path, destination: Path, prefix: str, cache: bool):
+    def build(self, source: Path, destination: Path, name: str, prefix: str, cache: bool):
         ...
 
 
 class AddonBuilderStrategy(BuilderStrategy):
-    def build(self, source: Path, destination: Path, prefix: str, cache: bool):
+    def build(self, source: Path, destination: Path, name: str, prefix: str, cache: bool):
         executable = Path(Configuration().get().toolsPath, ADDON_BUILDER_RELATIVE_PATH)
         source_encoded = base64.b64encode(str(source).encode()).decode()
 
@@ -52,7 +52,8 @@ class AddonBuilderStrategy(BuilderStrategy):
 
 
 class FPackerBuilderStrategy(BuilderStrategy):
-    def build(self, source: Path, destination: Path, prefix: str, cache: bool):
+    def build(self, source: Path, destination: Path, name: str, prefix: str, cache: bool):
+        os.makedirs(destination / 'addons', exist_ok=True)
         executable = 'FPackerEx.exe'
         subprocess.run(
             [
@@ -68,15 +69,54 @@ class FPackerBuilderStrategy(BuilderStrategy):
             shell=True,
         ).check_returncode()
 
-        pbo = PBOFile.read_file(Path(destination, 'addons', f'{destination.name}.pbo'))
+        pbo = PBOFile.read_file(Path(destination, 'addons', f'{name}.pbo'))
 
         pbo_headers = PBOHeaderExtensionWrapper(pbo.pbo_header.header_extension)
         pbo_headers['prefix'] = prefix
         pbo_headers.commit()
 
-        pbo.save_file(Path(destination, 'addons', f'{destination.name}.pbo'))
+        pbo.save_file(Path(destination, 'addons', f'{name}.pbo'))
 
 
 class PboPackerBuilderStrategy(BuilderStrategy):
     def build(self, source: Path, destination: Path, prefix: str, cache: bool):
         ...
+
+
+class BinarizeStrategy:
+    def binarize(self, source: Path, destination: Path):
+        ...
+
+class BohemiaBinarizeStrategy(BinarizeStrategy):
+    def binarize(self, source: Path, destination: Path):
+        binarize_path = Path(Configuration().get().toolsPath, BINARIZE_RELATIVE_PATH)
+        subprocess.run(
+            [
+                binarize_path,
+                '-noLogs',
+                '-targetBonesInterval=56',
+                '-maxProcesses=16',
+                '-always',
+                '-silent',
+                f'-addon={destination.parent}',
+                f'-textures={destination}',
+                f'-binpath={binarize_path.parent}',
+                source,
+                destination,
+            ],
+            cwd=binarize_path.parent,
+            shell=True,
+        ).check_returncode()
+
+        subprocess.run(
+            [
+                binarize_path,
+                '-texheaders',
+                '-maxProcesses=16',
+                '-silent',
+                destination,
+                destination,
+            ],
+            cwd=binarize_path.parent,
+            shell=True,
+        ).check_returncode()

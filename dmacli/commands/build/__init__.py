@@ -47,7 +47,8 @@ def build(
         destination: Destination directory path
         builder: Builder to use (fpacker / addonbuilder / pbopacker)
         cache: Whether to use cached data
+        pack: Whether to build as a pack
     """
     builder_factory = PackBuilderFactory() if pack else ModificationBuilderFactory()
-    builder = builder_factory.get_builder(builder, Path(source), Path(destination), cache)
+    builder = builder_factory.get_builder(builder, Path(source).resolve(), Path(destination).resolve(), cache)
     builder.build()
