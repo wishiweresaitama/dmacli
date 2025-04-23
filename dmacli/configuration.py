@@ -1,4 +1,6 @@
 import json
+import logging
+
 from pathlib import Path
 from dmacli.constants import CONFIGURATION_DIR, CONFIGURATION_NAME
 from dmacli.models.config import ConfigurationModel
@@ -12,12 +14,16 @@ class Configuration(metaclass=Singleton):
         self.refresh()
 
     def refresh(self):
-        with open(Path.home() / CONFIGURATION_DIR / CONFIGURATION_NAME, 'r') as file:
-            self._config = ConfigurationModel(
-                **json.loads(
-                    file.read(),
-                ),
-            )
+        try:
+            with open(Path.home() / CONFIGURATION_DIR / CONFIGURATION_NAME, 'r') as file:
+                self._config = ConfigurationModel(
+                    **json.loads(
+                        file.read(),
+                        ),
+                    )
+        except FileNotFoundError:
+            logging.warning(f"Configuration file not found, creating default configuration")
+            self._config = ConfigurationModel()
 
     def get(self):
         return self._config
