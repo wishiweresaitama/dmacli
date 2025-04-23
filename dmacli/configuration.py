@@ -38,5 +38,6 @@ class Configuration(metaclass=Singleton):
         return self._config.model_dump_json(indent=4)
 
     def save(self):
+        os.makedirs(Path.home() / CONFIGURATION_DIR, exist_ok=True)
         with open(Path.home() / CONFIGURATION_DIR / CONFIGURATION_NAME, 'w') as file:
             file.write(self.dump())
