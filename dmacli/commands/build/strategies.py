@@ -87,13 +87,16 @@ class BinarizeStrategy:
     def binarize(self, source: Path, destination: Path):
         ...
 
+class MockBinarizeStrategy(BinarizeStrategy):
+    def binarize(self, source: Path, destination: Path):
+        print(f'Binarizing {source} to {destination}')
+
 class BohemiaBinarizeStrategy(BinarizeStrategy):
     def binarize(self, source: Path, destination: Path):
         binarize_path = Path(Configuration().get().toolsPath, BINARIZE_RELATIVE_PATH)
         subprocess.run(
             [
                 binarize_path,
-                '-noLogs',
                 '-targetBonesInterval=56',
                 '-maxProcesses=16',
                 '-always',

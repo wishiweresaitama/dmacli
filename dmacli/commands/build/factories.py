@@ -9,6 +9,7 @@ from dmacli.commands.build.strategies import (
     AddonBuilderStrategy,
     PboPackerBuilderStrategy,
     BohemiaBinarizeStrategy,
+    MockBinarizeStrategy,
 )
 
 
@@ -19,7 +20,7 @@ class BaseBuilderFactory:
         self._builder_class = builder_class
         self._strategies = {
             'fpacker': (FPackerBuilderStrategy(), BohemiaBinarizeStrategy()),
-            'addonbuilder': (AddonBuilderStrategy(), BohemiaBinarizeStrategy()),
+            'addonbuilder': (AddonBuilderStrategy(), MockBinarizeStrategy()),
             'pbopacker': (PboPackerBuilderStrategy(), BohemiaBinarizeStrategy()),
         }
         
